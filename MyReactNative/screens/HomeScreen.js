@@ -1,12 +1,5 @@
 import * as React from 'react';
-import {
-   Image,
-   Platform,
-   StyleSheet,
-   Text,
-   TouchableOpacity,
-   View
-} from 'react-native';
+import { Image, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import * as WebBrowser from 'expo-web-browser';
 
@@ -14,7 +7,61 @@ import { MonoText } from '../components/StyledText';
 import * as ImagePicker from 'expo-image-picker';
 import * as Sharing from 'expo-sharing';
 
+import axios from 'axios'
+
 export default function HomeScreen() {
+
+   const handlePress1 = async () => {
+      fetch('https://data.advance88.hasura-app.io/v1/query', {
+         method: 'POST',
+         headers: {
+            'Content-Type': 'application/json'
+         },
+         body: JSON.stringify({
+            type: 'select',
+            args: {
+               table: 'author',
+               columns: ['name'],
+               limit: '1'
+            }
+         })
+      })
+         .then(response => response.json())
+         .then(responseJson => {
+            Alert.alert('Author name at 0th index:  ' + responseJson[0].name);
+         })
+         .catch(error => {
+            console.error(error);
+         });
+   };
+     const handlePress = async () => {
+
+           const data = await axios.get(
+              'http://127.0.0.1:3000/api/products/'
+           );
+           console.log(data)
+        
+         //   headers: {
+         //      'Content-Type': 'application/json'
+         //   }
+         //   body: JSON.stringify({
+         //      type: 'select',
+         //      args: {
+         //         table: 'author',
+         //         columns: ['name'],
+         //         limit: '1'
+         //      }
+         //   })
+        
+         //   .then(response => response.json())
+         //   .then(responseJson => {
+         //      alert('Author name at 0th index:  ' + responseJson);
+         //   })
+         //   .catch(error => {
+         //      console.error(error);
+         //   });
+     };
+
    let [selectedImage, setSelectedImage] = React.useState(null);
    let openImagePickerAsync = async () => {
       let permissionResult = await ImagePicker.requestCameraRollPermissionsAsync();
@@ -81,7 +128,8 @@ export default function HomeScreen() {
                </Text>
 
                <TouchableOpacity
-                  onPress={openImagePickerAsync}
+                  // onPress={openImagePickerAsync}
+                  onPress={handlePress}
                   style={styles.button}
                >
                   <Text style={styles.buttonText}>Pick a photo</Text>
