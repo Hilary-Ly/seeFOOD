@@ -40,7 +40,8 @@
     "react-redux": "^7.2.0",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
-    "sequelize": "^5.21.5"
+    "sequelize": "^5.21.5",
+    "react-native-reanimated": "~1.4.0"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",

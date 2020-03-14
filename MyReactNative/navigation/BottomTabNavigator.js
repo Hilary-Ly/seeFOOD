@@ -11,23 +11,25 @@ export default function BottomTabNavigator({ navigation, route }) {
   // Set the header title on the parent stack navigator depending on the
   // currently active tab. Learn more in the documentation:
   // https://reactnavigation.org/docs/en/screen-options-resolution.html
+
+  // i think navigation is how you get around the tabs (the button/link)
   navigation.setOptions({ headerTitle: getHeaderTitle(route) });
 
   return (
-    <BottomTab.Navigator initialRouteName={INITIAL_ROUTE_NAME}>
+    <BottomTab.Navigator initialRouteName={HomeScreen}>
       <BottomTab.Screen
         name="Home"
         component={HomeScreen}
         options={{
-          title: 'Get Started',
-          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-code-working" />,
+          title: 'Home',
+          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-restaurant" />,
         }}
       />
       <BottomTab.Screen
         name="Links"
         component={LinksScreen}
         options={{
-          title: 'Resources',
+          title: 'Hilary',
           tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-book" />,
         }}
       />
