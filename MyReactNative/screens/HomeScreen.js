@@ -7,109 +7,47 @@ import {
    TouchableOpacity,
    View
 } from 'react-native';
-// import { ScrollView } from 'react-native-gesture-handler';
 import * as WebBrowser from 'expo-web-browser';
-// import * as ImagePicker from 'expo-image-picker';
-// import * as Sharing from 'expo-sharing';
-// import {getIngredientsThunk} from '../redux/reducers';
-// import { connect } from 'react-redux';
 import Title from '../components/Title';
 import TabBarInfo from '../components/TabBarInfo';
 import Upload from '../components/Upload';
+import { createStackNavigator } from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
+import Ingredients from '../components/Ingredients';
 
-
-export default function HomeScreen(props) {
-   // console.log('props', props);
-   // const handleSubmit = () => {
-   //    const foodImageUrl = 'https://samples.clarifai.com/food.jpg';
-   //    props.getIngredientsThunk(foodImageUrl);
-   // };
-
-   // let [selectedImage, setSelectedImage] = React.useState(null);
-   // let openImagePickerAsync = async () => {
-   //    let permissionResult = await ImagePicker.requestCameraRollPermissionsAsync();
-   //    if (permissionResult.granted === false) {
-   //       alert('Permission to access camera roll is required!');
-   //       return;
-   //    }
-
-   //    let pickerResult = await ImagePicker.launchImageLibraryAsync();
-   //    if (pickerResult.cancelled === true) {
-   //       return;
-   //    }
-   //    setSelectedImage({ localUri: pickerResult.uri });
-   // };
-
-   
-   
-   // 
-   // if (selectedImage !== null) {
-   //    return (
-   //       <View style={styles.container}>
-   //          <View style={styles.welcomeContainer}>
-   //             <Image
-   //                source={{ uri: selectedImage.localUri }}
-   //                style={styles.thumbnail}
-   //             />
-
-   //             <TouchableOpacity onPress={handleSubmit} style={styles.button}>
-   //                <Text style={styles.buttonText}>Share this photo</Text>
-   //             </TouchableOpacity>
-   //          </View>
-   //       </View>
-   //    );
-   // }
-
-
-
+export default function HomeScreen() {
+   const Stack = createStackNavigator();
 
    return (
       <View style={styles.container}>
          <Title />
-         {/* <ScrollView
-            style={styles.container}
-            contentContainerStyle={styles.contentContainer}
-         > */}
-
-<Upload />
-            {/* <View style={styles.getStartedContainer}>
-               <Text style={styles.getStartedText}>
-                  To share a photo from your phone with a friend, just press the
-                  button below!
-               </Text>
-
-            </View>
-            <View style={styles.getStartedContainer}>
-               <TouchableOpacity onPress={openImagePickerAsync} style={styles.button}>
-                  <Text style={styles.buttonText}>Pick a photo</Text>
-               </TouchableOpacity>
-            </View> */}
-
-
-            <View style={styles.helpContainer}>
+         <NavigationContainer independent={true}>
+            <Stack.Navigator initialRouteName='Upload'>
+               <Stack.Screen
+                  name='Upload'
+                  component={Upload}
+                  options={{ headerShown: false }}
+               />
+               <Stack.Screen
+                  name='Ingredients'
+                  component={Ingredients}
+                  options={{ headerShown: false }}
+               />
+            </Stack.Navigator>
+         </NavigationContainer>
+         {/* <Upload /> */}
+         {/* <View style={styles.helpContainer}>
             <DevelopmentModeNotice />
-               <TouchableOpacity
-                  onPress={handleHelpPress}
-                  style={styles.helpLink}
-               >
-                  <Text style={styles.helpLinkText}>
-                     Help, it didn’t automatically reload!
-                  </Text>
-               </TouchableOpacity>
-            </View>
-         {/* </ScrollView> */}
+            <TouchableOpacity onPress={handleHelpPress} style={styles.helpLink}>
+               <Text style={styles.helpLinkText}>
+                  Help, it didn’t automatically reload!
+               </Text>
+            </TouchableOpacity>
+         </View> */}
          <TabBarInfo />
       </View>
    );
 }
-
-// const mapDispatch = dispatch => ({
-//    getIngredientsThunk: foodImageUrl => {
-//       dispatch(getIngredientsThunk(foodImageUrl));
-//    }
-// });
-
-// export default connect(null, mapDispatch)(HomeScreen);
 
 HomeScreen.navigationOptions = {
    header: null
@@ -125,7 +63,8 @@ function DevelopmentModeNotice() {
 
       return (
          <Text style={styles.developmentModeText}>
-            Development mode is enabled: your app will be slower but you can use useful development tools. {learnMoreButton}
+            Development mode is enabled: your app will be slower but you can use
+            useful development tools. {learnMoreButton}
          </Text>
       );
    } else {
@@ -161,9 +100,6 @@ const styles = StyleSheet.create({
       lineHeight: 19,
       textAlign: 'center'
    },
-   // contentContainer: {
-   //    paddingTop: 30
-   // },
    helpContainer: {
       marginTop: 15,
       alignItems: 'center'

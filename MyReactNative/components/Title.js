@@ -20,7 +20,8 @@ const styles = StyleSheet.create({
    welcomeContainer: {
       alignItems: 'center',
       marginTop: 10,
-      marginBottom: 20
+      marginBottom: 20,
+      backgroundColor: '#fff'
    },
    welcomeImage: {
       width: 100,

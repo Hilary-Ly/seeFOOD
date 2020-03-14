@@ -22,6 +22,7 @@ export function Upload(props) {
    const handleSubmit = () => {
       const foodImageUrl = 'https://samples.clarifai.com/food.jpg';
       props.getIngredientsThunk(foodImageUrl);
+      props.navigation.navigate('Ingredients');
    };
 
    return (
@@ -79,11 +80,13 @@ const styles = StyleSheet.create({
    welcomeContainer: {
       alignItems: 'center',
       marginTop: 10,
-      marginBottom: 20
+      marginBottom: 20,
+      backgroundColor: '#fff'
    },
    getStartedContainer: {
       alignItems: 'center',
-      marginHorizontal: 50
+      marginHorizontal: 50,
+      backgroundColor: '#fff'
    },
    homeScreenFilename: {
       marginVertical: 7
