@@ -1,64 +1,71 @@
 import * as React from 'react';
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import {
+   FlatList,
+   StyleSheet,
+   Text,
+   TouchableOpacity,
+   View
+} from 'react-native';
 import { connect } from 'react-redux';
-import { ScrollView } from 'react-native-gesture-handler';
 
 export function Ingredients(props) {
    console.log('props.ingredients', props.ingredients);
-   const {ingredients} = props
+   const { ingredients } = props;
+
+   const rows = ingredients.map(ingredient => {
+      return { id: ingredient.id, text: ingredient.name };
+   });
+   const extractKey = ({ id }) => id;
+
+   const renderItem = ({ item }) => {
+      return (
+            <Text style={styles.row}>{item.text}</Text>
+      );
+   };
    return (
-      <ScrollView
-         style={styles.container}
-         contentContainerStyle={styles.contentContainer}
-      >
-         <View style={styles.getStartedContainer}>
-            <Text style={styles.getStartedText}>Ingredients</Text>
-            {ingredients.map(ingredient => {
-               return (
-                  <Text style={styles.getStartedText} key={ingredient.id}>{ingredient.name}</Text>
-               );
-            })}
-         </View>
-      </ScrollView>
+      <View style={styles.container}>
+         <Text style={styles.ingredientsText}>Select ingredients</Text>
+         <FlatList
+            style={styles.container}
+            data={rows}
+            renderItem={renderItem}
+            keyExtractor={extractKey}
+         />
+      </View>
    );
 }
 
 const mapState = state => {
-    return {
-        ingredients: state
-    }
-}
+   return {
+      ingredients: state
+   };
+};
 
 export default connect(mapState)(Ingredients);
 
 const styles = StyleSheet.create({
    container: {
-      backgroundColor: '#fff'
+      backgroundColor: '#fff',
+      marginBottom: 10
    },
-   contentContainer: {
-      paddingTop: 5
+   row: {
+      padding: 15,
+      marginLeft: 30,
+      marginRight: 30,
+      marginTop: 0,
+      marginBottom: 10,
+      backgroundColor: '#F7CC8F'
    },
    uploadButtons: {
       flexDirection: 'row',
       justifyContent: 'space-between'
    },
-   welcomeContainer: {
-      alignItems: 'center',
-      marginTop: 10,
-      marginBottom: 20
-   },
-   getStartedContainer: {
-      alignItems: 'center',
-      marginHorizontal: 50
-   },
-   homeScreenFilename: {
-      marginVertical: 7
-   },
-   getStartedText: {
+   ingredientsText: {
       fontSize: 17,
       color: 'rgba(96,100,109, 1)',
       lineHeight: 24,
-      textAlign: 'center'
+      textAlign: 'center',
+      marginBottom: 10
    },
    button: {
       backgroundColor: 'grey',
@@ -69,10 +76,5 @@ const styles = StyleSheet.create({
    buttonText: {
       fontSize: 20,
       color: '#fff'
-   },
-   thumbnail: {
-      width: 300,
-      height: 300,
-      resizeMode: 'contain'
    }
 });

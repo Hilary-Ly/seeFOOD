@@ -41,16 +41,6 @@ export default function HomeScreen() {
                />
             </Stack.Navigator>
          </NavigationContainer>
-         {/* <Upload /> */}
-         {/* <View style={styles.helpContainer}>
-            <DevelopmentModeNotice />
-            <TouchableOpacity onPress={handleHelpPress} style={styles.helpLink}>
-               <Text style={styles.helpLinkText}>
-                  Help, it didn’t automatically reload!
-               </Text>
-            </TouchableOpacity>
-         </View> */}
-         <TabBarInfo />
       </View>
    );
 }
