@@ -9,35 +9,17 @@ import {
 } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import * as WebBrowser from 'expo-web-browser';
-
 import { MonoText } from '../components/StyledText';
 import * as ImagePicker from 'expo-image-picker';
 import * as Sharing from 'expo-sharing';
+import {getIngredientsThunk} from '../redux/reducers';
+import { connect } from 'react-redux';
 
-import axios from 'axios';
-import '../secrets'
-
-export default function HomeScreen() {
-   
-   const handleSubmit = async () => {
-      try {
-         const options = {
-            headers: {
-               'Authorization': process.env.CLARIFAI_API_KEY,
-               'Content-Type': 'application/json'
-            }
-         };
-
-         const {data} = await axios.post(
-            'https://api.clarifai.com/v2/models/bd367be194cf45149e75f01d59f77ba7/outputs', {
-               inputs: [
-                  { data: { image: { url: 'https://samples.clarifai.com/food.jpg' } } }
-               ]
-            }, options);
-         console.log(data.outputs[0].data.concepts.map(concept => concept["name"]))
-      } catch (error) {
-         console.error(error);
-      }
+export function HomeScreen(props) {
+   // console.log('props', props);
+   const handleSubmit = () => {
+      const foodImageUrl = 'https://samples.clarifai.com/food.jpg';
+      props.getIngredientsThunk(foodImageUrl);
    };
 
    let [selectedImage, setSelectedImage] = React.useState(null);
@@ -53,7 +35,6 @@ export default function HomeScreen() {
          return;
       }
       setSelectedImage({ localUri: pickerResult.uri });
-      console.log('pickerResult', pickerResult);
    };
 
    let openShareDialogAsync = async () => {
@@ -103,17 +84,16 @@ export default function HomeScreen() {
                   button below!
                </Text>
 
-               <TouchableOpacity
-                  onPress={openImagePickerAsync}
-                  style={styles.button}
-               >
+            </View>
+            <View style={styles.getStartedContainer}>
+               <TouchableOpacity onPress={openImagePickerAsync} style={styles.button}>
                   <Text style={styles.buttonText}>Pick a photo</Text>
                </TouchableOpacity>
             </View>
 
-            <DevelopmentModeNotice />
 
             <View style={styles.helpContainer}>
+            <DevelopmentModeNotice />
                <TouchableOpacity
                   onPress={handleHelpPress}
                   style={styles.helpLink}
@@ -144,6 +124,14 @@ export default function HomeScreen() {
       </View>
    );
 }
+
+const mapDispatch = dispatch => ({
+   getIngredientsThunk: foodImageUrl => {
+      dispatch(getIngredientsThunk(foodImageUrl));
+   }
+});
+
+export default connect(null, mapDispatch)(HomeScreen);
 
 HomeScreen.navigationOptions = {
    header: null
