@@ -26,12 +26,18 @@ export default function HomeScreen() {
                <Stack.Screen
                   name='Upload'
                   component={Upload}
-                  options={{ headerShown: false }}
+                  options={{
+                     headerShown: false,
+                     cardStyle: {backgroundColor: 'transparent'}
+                  }}
                />
                <Stack.Screen
                   name='Ingredients'
                   component={Ingredients}
-                  options={{ headerShown: false }}
+                  options={{
+                     headerShown: false,
+                     cardStyle: {backgroundColor: 'transparent'}
+                  }}
                />
             </Stack.Navigator>
          </NavigationContainer>

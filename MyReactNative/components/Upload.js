@@ -1,5 +1,12 @@
 import * as React from 'react';
-import { Image, StyleSheet, Text, TouchableOpacity, View, Alert } from 'react-native';
+import {
+   Image,
+   StyleSheet,
+   Text,
+   TouchableOpacity,
+   View,
+   Alert
+} from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { getIngredientsThunk } from '../redux/reducers';
 import { connect } from 'react-redux';
@@ -20,26 +27,24 @@ export function Upload(props) {
       setSelectedImage({ localUri: pickerResult.uri });
    };
 
-   const handleSubmit = () => {
+   const handleSubmit = async () => {
       const foodImageUrl =
          'https://firebasestorage.googleapis.com/v0/b/seefood-b071f.appspot.com/o/images?alt=media&token=9ee43ed7-a01f-4fc5-b26b-89ed76cac08b';
-    //   'https://samples.clarifai.com/food.jpg';
 
-      console.log('selectedImage', selectedImage);
+      const uploadImage = async uri => {
+         const response = await fetch(uri);
+         const blob = await response.blob();
+         var ref = firebase
+            .storage()
+            .ref()
+            .child('images/');
+         return ref.put(blob);
+      };
 
-    const uploadImage = async (uri) => {
-        const response = await fetch(uri)
-        const blob = await response.blob()
-        var ref = firebase.storage().ref().child('images/')
-        return ref.put(blob)
-    }
-
-      uploadImage(selectedImage.localUri)
-        .then(() => Alert.alert('success'))
-        .catch(error => Alert.alert(error))
-
-      props.getIngredientsThunk(foodImageUrl);
-      props.navigation.navigate('Ingredients');
+      await uploadImage(selectedImage.localUri);
+      Alert.alert('Image accepted');
+      await props.getIngredientsThunk(foodImageUrl);
+      await props.navigation.navigate('Ingredients');
    };
 
    return (
