@@ -5,11 +5,12 @@ import * as Font from 'expo-font';
 import { Ionicons } from '@expo/vector-icons';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-
 import BottomTabNavigator from './navigation/BottomTabNavigator';
 import useLinking from './navigation/useLinking';
 import { Provider } from 'react-redux';
 import store from './redux/store'
+import * as firebase from 'firebase';
+import './secrets'
 
 const Stack = createStackNavigator();
 
@@ -24,10 +25,8 @@ export default function App(props) {
     async function loadResourcesAndDataAsync() {
       try {
         SplashScreen.preventAutoHide();
-
         // Load our initial navigation state
         setInitialNavigationState(await getInitialState());
-
         // Load fonts
         await Font.loadAsync({
           ...Ionicons.font,
@@ -41,9 +40,10 @@ export default function App(props) {
         SplashScreen.hide();
       }
     }
-
     loadResourcesAndDataAsync();
   }, []);
+
+  if (!firebase.apps.length) firebase.initializeApp(process.env.FIREBASE_CONFIG)
 
   if (!isLoadingComplete && !props.skipLoadingScreen) {
     return null;

@@ -15,7 +15,7 @@ export function Ingredients(props) {
             <Text style={styles.getStartedText}>Ingredients</Text>
             {ingredients.map(ingredient => {
                return (
-                  <Text style={styles.getStartedText}>{ingredient.name}</Text>
+                  <Text style={styles.getStartedText} key={ingredient.id}>{ingredient.name}</Text>
                );
             })}
          </View>
