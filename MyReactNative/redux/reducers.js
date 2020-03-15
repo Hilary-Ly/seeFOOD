@@ -33,7 +33,7 @@ export const getIngredientsThunk = foodImageUrl => {
             },
             options
          );
-         console.log('data', data.outputs[0].data.concepts)
+        //  console.log('data', data.outputs[0].data.concepts)
          const possIngredients = data.outputs[0].data.concepts;
          dispatch(getIngredients(possIngredients));
       } catch (error) {

@@ -9,7 +9,6 @@ import {
 } from 'react-native';
 import * as WebBrowser from 'expo-web-browser';
 import Title from '../components/Title';
-import TabBarInfo from '../components/TabBarInfo';
 import Upload from '../components/Upload';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';

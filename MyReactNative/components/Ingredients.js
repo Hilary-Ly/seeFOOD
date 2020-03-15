@@ -7,33 +7,67 @@ import {
    View
 } from 'react-native';
 import { connect } from 'react-redux';
+import { Ionicons } from '@expo/vector-icons';
+import SubmitBar from './ingredientSubmitBar';
 
 export function Ingredients(props) {
-   console.log('props.ingredients', props.ingredients);
+   const [selected, setSelected] = React.useState(new Map());
+   //    console.log('state', state);
    const { ingredients } = props;
 
-   const rows = ingredients.map(ingredient => {
-      return { id: ingredient.id, text: ingredient.name };
-   });
    const extractKey = ({ id }) => id;
-
-   const renderItem = ({ item }) => {
+   function Item({ id, name, selected, onSelect }) {
       return (
-            <Text style={styles.row}>{item.text}</Text>
+         <TouchableOpacity
+            onPress={() => onSelect(name)}
+            style={[
+               styles.item,
+               { backgroundColor: selected ? '#6e3b6e' : '#F7CC8F' }
+            ]}
+         >
+            <Text style={styles.ingredientsText}>{name}</Text>
+            <Ionicons
+               name='ios-add-circle-outline'
+               size={25}
+               style={{ marginBottom: -7, marginTop: -5 }}
+               color='#fff'
+            />
+         </TouchableOpacity>
       );
-   };
+   }
+   const onSelect = React.useCallback(
+      name => {
+         console.log('name', name);
+         const newSelected = new Map(selected);
+         newSelected.set(name, !selected.get(name));
+
+         setSelected(newSelected);
+      },
+      [selected]
+   );
+   console.log('selected', selected);
    return (
       <View style={styles.container}>
-         <Text style={styles.ingredientsText}>Select ingredients</Text>
+         <Text style={styles.container}>Select ingredients</Text>
          <FlatList
-            style={styles.container}
-            data={rows}
-            renderItem={renderItem}
+            style={styles.flatlist}
+            data={ingredients}
+            renderItem={({ item }) => (
+               <Item
+                  id={item.id}
+                  name={item.name}
+                  selected={!!selected.get(item.name)}
+                  onSelect={onSelect}
+               />
+            )}
             keyExtractor={extractKey}
+            extraData={selected}
          />
+         <SubmitBar />
       </View>
    );
 }
+// }
 
 const mapState = state => {
    return {
@@ -46,35 +80,28 @@ export default connect(mapState)(Ingredients);
 const styles = StyleSheet.create({
    container: {
       backgroundColor: '#fff',
-      marginBottom: 10
-   },
-   row: {
-      padding: 15,
-      marginLeft: 30,
-      marginRight: 30,
-      marginTop: 0,
       marginBottom: 10,
-      backgroundColor: '#F7CC8F'
+      textAlign: 'center'
    },
-   uploadButtons: {
-      flexDirection: 'row',
-      justifyContent: 'space-between'
+   flatlist: {
+      backgroundColor: '#fff',
+      marginBottom: 90,
+      textAlign: 'center'
    },
    ingredientsText: {
       fontSize: 17,
-      color: 'rgba(96,100,109, 1)',
-      lineHeight: 24,
-      textAlign: 'center',
-      marginBottom: 10
+      color: 'rgba(96,100,109, 1)'
+      //   lineHeight: 24,
+      //   textAlign: 'center'
+      //   marginBottom: 10
    },
-   button: {
-      backgroundColor: 'grey',
-      padding: 20,
-      margin: 10,
-      borderRadius: 5
-   },
-   buttonText: {
-      fontSize: 20,
-      color: '#fff'
+   item: {
+      backgroundColor: '#F7CC8F',
+      padding: 15,
+      marginTop: 5,
+      marginBottom: 5,
+      marginHorizontal: 30,
+      justifyContent: 'space-between',
+      flexDirection: 'row'
    }
 });
