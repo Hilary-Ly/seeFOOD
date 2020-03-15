@@ -12,7 +12,6 @@ import SubmitBar from './ingredientSubmitBar';
 
 export function Ingredients(props) {
    const [selected, setSelected] = React.useState(new Map());
-   //    console.log('state', state);
    const { ingredients } = props;
 
    const extractKey = ({ id }) => id;
@@ -41,10 +40,8 @@ export function Ingredients(props) {
    }
    const onSelect = React.useCallback(
       name => {
-         console.log('name', name);
          const newSelected = new Map(selected);
          newSelected.set(name, !selected.get(name));
-
          setSelected(newSelected);
       },
       [selected]
@@ -70,11 +67,10 @@ export function Ingredients(props) {
       </View>
    );
 }
-// }
 
 const mapState = state => {
    return {
-      ingredients: state
+      ingredients: state.ingredients
    };
 };
 

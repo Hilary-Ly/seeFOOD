@@ -2,6 +2,7 @@ import axios from 'axios';
 import '../secrets';
 
 const GET_INGREDIENTS = 'GET_INGREDIENTS';
+const SUBMIT_INGREDIENTS = 'SUBMIT_INGREDIENTS'
 
 const getIngredients = ingredients => {
    return {
@@ -10,9 +11,15 @@ const getIngredients = ingredients => {
    };
 };
 
+const submitIngredients = recipes => {
+    return {
+        type: SUBMIT_INGREDIENTS,
+        recipes
+    }
+}
+
 export const getIngredientsThunk = foodImageUrl => {
     return async dispatch => {
-        // console.log('foodImageUrl passed into reducer file');
       try {
          const options = {
             headers: {
@@ -33,7 +40,6 @@ export const getIngredientsThunk = foodImageUrl => {
             },
             options
          );
-        //  console.log('data', data.outputs[0].data.concepts)
          const possIngredients = data.outputs[0].data.concepts;
          dispatch(getIngredients(possIngredients));
       } catch (error) {
@@ -42,12 +48,25 @@ export const getIngredientsThunk = foodImageUrl => {
    };
 };
 
-const initialState = [];
+export const submitIngredientsThunk = ingredientsStr => {
+    return async dispatch => {
+        console.log('ingredientsStr in thunk', ingredientsStr);
+        const { data } = await axios.post(`http://www.recipepuppy.com/api/?i=${ingredientsStr}`);
+        console.log('axios response', data.results)
+        dispatch(submitIngredients(data.results))
+    }
+}
+
+
+
+const initialState = { ingredients: [], recipes: []};
 
 const reducer = (state = initialState, action) => {
    switch (action.type) {
       case GET_INGREDIENTS:
-         return action.ingredients;
+         return {...state, ingredients: action.ingredients}
+        case SUBMIT_INGREDIENTS:
+            return {...state, recipes: action.recipes}
       default:
          return state;
    }
