@@ -13,7 +13,7 @@ import { connect } from 'react-redux';
 import * as firebase from 'firebase';
 
 export function Upload(props) {
-    const { getIngredientsThunk, navigation } = props
+   const { getIngredientsThunk, navigation } = props;
    let [selectedImage, setSelectedImage] = React.useState(null);
    let openImagePickerAsync = async () => {
       let permissionResult = await ImagePicker.requestCameraRollPermissionsAsync();

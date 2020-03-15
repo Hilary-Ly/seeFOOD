@@ -50,12 +50,19 @@ export const getIngredientsThunk = foodImageUrl => {
 
 export const submitIngredientsThunk = ingredientsStr => {
    return async dispatch => {
-      console.log('ingredientsStr in thunk', ingredientsStr);
-      const { data } = await axios.post(
-         `http://www.recipepuppy.com/api/?i=${ingredientsStr}`
+      //   console.log('ingredientsStr in thunk', ingredientsStr);
+      // loop to get 3 pages of results
+      let recipes = [];
+      for (let i = 1; i <= 3; i++) {
+         const { data } = await axios.post(
+            `http://www.recipepuppy.com/api/?i=${ingredientsStr}&p=${i}`
+         );
+         recipes.push(...data.results);
+      }
+      const filteredRecipes = recipes.filter(recipe =>
+         recipe.href.startsWith('http://www.recipezaar.com/')
       );
-      console.log('axios response', data.results);
-      dispatch(submitIngredients(data.results));
+      dispatch(submitIngredients(filteredRecipes));
    };
 };
 

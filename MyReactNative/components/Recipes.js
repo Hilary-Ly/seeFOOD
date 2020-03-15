@@ -7,19 +7,26 @@ import {
    View
 } from 'react-native';
 import { connect } from 'react-redux';
+// import scrape from '../webscraper/scrape'
 
 export function Recipes(props) {
     // console.log('props in recipes comp', props)
     const { recipes, navigation } = props;
     // const handleSubmit = () => {
+    //     // use webscraper on chosen recipe to get quantified ingredients
+    //     const url = 'www.food.com/recipe/creamy-tomato-sauce-for-pasta-233460'
+    //     console.log('recipe component uses scrape')
+    //     // scrape(url)
 
     // }
    const extractKey = ({ id }) => id;
    const renderItem = ({ item }) => {
       return (
-         <TouchableOpacity style={styles.item}>
+         <TouchableOpacity style={styles.item} key={item.href} >
+        {/* //  onPress={handleSubmit} */}
             <Text style={styles.itemName}>{item.title.trim()}</Text>
             <Text style={styles.itemText}>({item.ingredients})</Text>
+            <Text style={styles.itemName}>({item.href})</Text>
          </TouchableOpacity>
       );
    };
