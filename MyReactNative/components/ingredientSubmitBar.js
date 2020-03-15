@@ -4,9 +4,9 @@ import { connect } from 'react-redux';
 import { submitIngredientsThunk } from '../redux/reducers'
 
 export function SubmitBar(props) {
-   // console.log('submit bar props', props)
-   const handleSubmit = async () => {
-      const { selected, submitIngredientsThunk } = props
+   console.log('submit bar props', props)
+   const handleSubmit = () => {
+      const { selected, submitIngredientsThunk, navigation } = props
       let selectionArr = []
       selected.forEach((value, key) => {
          if (value === true) selectionArr.push(key)
@@ -14,6 +14,7 @@ export function SubmitBar(props) {
       const selectionStr = selectionArr.join(',')
       console.log('selectionStr', selectionStr);
       submitIngredientsThunk(selectionStr)
+      navigation.navigate('Recipes');
    }
    return (
       <View style={styles.tabBarInfoContainer}>

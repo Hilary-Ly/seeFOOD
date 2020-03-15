@@ -2,7 +2,7 @@ import axios from 'axios';
 import '../secrets';
 
 const GET_INGREDIENTS = 'GET_INGREDIENTS';
-const SUBMIT_INGREDIENTS = 'SUBMIT_INGREDIENTS'
+const SUBMIT_INGREDIENTS = 'SUBMIT_INGREDIENTS';
 
 const getIngredients = ingredients => {
    return {
@@ -12,14 +12,14 @@ const getIngredients = ingredients => {
 };
 
 const submitIngredients = recipes => {
-    return {
-        type: SUBMIT_INGREDIENTS,
-        recipes
-    }
-}
+   return {
+      type: SUBMIT_INGREDIENTS,
+      recipes
+   };
+};
 
 export const getIngredientsThunk = foodImageUrl => {
-    return async dispatch => {
+   return async dispatch => {
       try {
          const options = {
             headers: {
@@ -49,24 +49,24 @@ export const getIngredientsThunk = foodImageUrl => {
 };
 
 export const submitIngredientsThunk = ingredientsStr => {
-    return async dispatch => {
-        console.log('ingredientsStr in thunk', ingredientsStr);
-        const { data } = await axios.post(`http://www.recipepuppy.com/api/?i=${ingredientsStr}`);
-        console.log('axios response', data.results)
-        dispatch(submitIngredients(data.results))
-    }
-}
+   return async dispatch => {
+      console.log('ingredientsStr in thunk', ingredientsStr);
+      const { data } = await axios.post(
+         `http://www.recipepuppy.com/api/?i=${ingredientsStr}`
+      );
+      console.log('axios response', data.results);
+      dispatch(submitIngredients(data.results));
+   };
+};
 
-
-
-const initialState = { ingredients: [], recipes: []};
+const initialState = { ingredients: [], recipes: [] };
 
 const reducer = (state = initialState, action) => {
    switch (action.type) {
       case GET_INGREDIENTS:
-         return {...state, ingredients: action.ingredients}
-        case SUBMIT_INGREDIENTS:
-            return {...state, recipes: action.recipes}
+         return { ...state, ingredients: action.ingredients };
+      case SUBMIT_INGREDIENTS:
+         return { ...state, recipes: action.recipes };
       default:
          return state;
    }

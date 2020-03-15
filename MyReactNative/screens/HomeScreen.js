@@ -13,6 +13,7 @@ import Upload from '../components/Upload';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import Ingredients from '../components/Ingredients';
+import Recipes from '../components/Recipes';
 
 export default function HomeScreen() {
    const Stack = createStackNavigator();
@@ -27,7 +28,7 @@ export default function HomeScreen() {
                   component={Upload}
                   options={{
                      headerShown: false,
-                     cardStyle: {backgroundColor: 'transparent'}
+                     cardStyle: { backgroundColor: 'transparent' }
                   }}
                />
                <Stack.Screen
@@ -35,7 +36,15 @@ export default function HomeScreen() {
                   component={Ingredients}
                   options={{
                      headerShown: false,
-                     cardStyle: {backgroundColor: 'transparent'}
+                     cardStyle: { backgroundColor: 'transparent' }
+                  }}
+               />
+               <Stack.Screen
+                  name='Recipes'
+                  component={Recipes}
+                  options={{
+                     headerShown: false,
+                     cardStyle: { backgroundColor: 'transparent' }
                   }}
                />
             </Stack.Navigator>

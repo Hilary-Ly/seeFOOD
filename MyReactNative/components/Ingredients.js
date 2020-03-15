@@ -12,7 +12,8 @@ import SubmitBar from './ingredientSubmitBar';
 
 export function Ingredients(props) {
    const [selected, setSelected] = React.useState(new Map());
-   const { ingredients } = props;
+//    console.log('ingredients comp props', props)
+   const { ingredients, navigation } = props;
 
    const extractKey = ({ id }) => id;
    function Item({ id, name, selected, onSelect }) {
@@ -63,7 +64,7 @@ export function Ingredients(props) {
             keyExtractor={extractKey}
             extraData={selected}
          />
-         <SubmitBar selected={selected} />
+         <SubmitBar selected={selected} navigation={navigation} />
       </View>
    );
 }
