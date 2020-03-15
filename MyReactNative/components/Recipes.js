@@ -9,19 +9,24 @@ import {
 import { connect } from 'react-redux';
 
 export function Recipes(props) {
-   const { recipes } = props;
+    // console.log('props in recipes comp', props)
+    const { recipes, navigation } = props;
+    // const handleSubmit = () => {
+
+    // }
    const extractKey = ({ id }) => id;
    const renderItem = ({ item }) => {
       return (
          <TouchableOpacity style={styles.item}>
-            <Text style={styles.row}>{item.title.trim()}</Text>
+            <Text style={styles.itemName}>{item.title.trim()}</Text>
+            <Text style={styles.itemText}>({item.ingredients})</Text>
          </TouchableOpacity>
       );
    };
    return (
       <View style={styles.container}>
          <Text style={styles.container}>
-            Select a recipe for nutrional information
+            Select a recipe below for nutrional information
          </Text>
          <FlatList
             style={styles.container}
@@ -47,10 +52,16 @@ const styles = StyleSheet.create({
       marginBottom: 10,
       textAlign: 'center'
    },
-   row: {
-      padding: 15,
+   itemName: {
+      padding: 5,
       backgroundColor: '#7F99A7',
       color: '#fff'
+   },
+   itemText: {
+      padding: 5,
+      backgroundColor: '#7F99A7',
+      color: '#fff',
+      fontStyle: 'italic'
    },
    //    flatlist: {
    //       backgroundColor: '#fff',
@@ -58,7 +69,8 @@ const styles = StyleSheet.create({
    //       textAlign: 'center'
    //    },
    item: {
+      margin: 15,
       marginVertical: 5,
       marginHorizontal: 30
-   }
+   },
 });

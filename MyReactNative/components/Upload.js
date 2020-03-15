@@ -13,6 +13,7 @@ import { connect } from 'react-redux';
 import * as firebase from 'firebase';
 
 export function Upload(props) {
+    const { getIngredientsThunk, navigation } = props
    let [selectedImage, setSelectedImage] = React.useState(null);
    let openImagePickerAsync = async () => {
       let permissionResult = await ImagePicker.requestCameraRollPermissionsAsync();
@@ -29,7 +30,7 @@ export function Upload(props) {
 
    const handleSubmit = async () => {
       const foodImageUrl =
-         'https://firebasestorage.googleapis.com/v0/b/seefood-b071f.appspot.com/o/images?alt=media&token=9ee43ed7-a01f-4fc5-b26b-89ed76cac08b';
+         'https://firebasestorage.googleapis.com/v0/b/seefood-b071f.appspot.com/o/image?alt=media&token=9ee43ed7-a01f-4fc5-b26b-89ed76cac08b';
 
       const uploadImage = async uri => {
          const response = await fetch(uri);
@@ -37,14 +38,14 @@ export function Upload(props) {
          var ref = firebase
             .storage()
             .ref()
-            .child('images/');
+            .child('image/');
          return ref.put(blob);
       };
 
       await uploadImage(selectedImage.localUri);
       Alert.alert('Image accepted');
-      await props.getIngredientsThunk(foodImageUrl);
-      await props.navigation.navigate('Ingredients');
+      await getIngredientsThunk(foodImageUrl);
+      await navigation.navigate('Ingredients');
    };
 
    return (
@@ -109,9 +110,6 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       marginHorizontal: 50,
       backgroundColor: '#fff'
-   },
-   homeScreenFilename: {
-      marginVertical: 7
    },
    getStartedText: {
       fontSize: 17,
