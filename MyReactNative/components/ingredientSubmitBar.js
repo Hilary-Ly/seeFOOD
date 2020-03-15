@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { TouchableOpacity, Platform, StyleSheet, Text, View } from 'react-native';
 
-export default function SubmitBar() {
+export default function SubmitBar(props) {
+   console.log('submit bar props', props)
    return (
       <View style={styles.tabBarInfoContainer}>
          <TouchableOpacity style={styles.button}>

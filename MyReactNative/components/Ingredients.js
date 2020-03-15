@@ -22,12 +22,16 @@ export function Ingredients(props) {
             onPress={() => onSelect(name)}
             style={[
                styles.item,
-               { backgroundColor: selected ? '#6e3b6e' : '#F7CC8F' }
+               { backgroundColor: selected ? '#BC9698' : '#F7CC8F' }
             ]}
          >
             <Text style={styles.ingredientsText}>{name}</Text>
             <Ionicons
-               name='ios-add-circle-outline'
+               name={
+                  selected
+                     ? 'ios-remove-circle-outline'
+                     : 'ios-add-circle-outline'
+               }
                size={25}
                style={{ marginBottom: -7, marginTop: -5 }}
                color='#fff'
@@ -45,7 +49,6 @@ export function Ingredients(props) {
       },
       [selected]
    );
-   console.log('selected', selected);
    return (
       <View style={styles.container}>
          <Text style={styles.container}>Select ingredients</Text>
@@ -63,7 +66,7 @@ export function Ingredients(props) {
             keyExtractor={extractKey}
             extraData={selected}
          />
-         <SubmitBar />
+         <SubmitBar selected={selected} />
       </View>
    );
 }
@@ -91,12 +94,8 @@ const styles = StyleSheet.create({
    ingredientsText: {
       fontSize: 17,
       color: 'rgba(96,100,109, 1)'
-      //   lineHeight: 24,
-      //   textAlign: 'center'
-      //   marginBottom: 10
    },
    item: {
-      backgroundColor: '#F7CC8F',
       padding: 15,
       marginTop: 5,
       marginBottom: 5,
