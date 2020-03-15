@@ -8,22 +8,29 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 
-export function Recipes (props) {
-    const { recipes } = props
-     const extractKey = ({ id }) => id;
-     const renderItem = ({ item }) => {
-        return <Text style={styles.row}>{item.title}</Text>;
-     };
-     return (
-        <View style={styles.container}>
-           <FlatList
-              style={styles.container}
-              data={recipes}
-              renderItem={renderItem}
-              keyExtractor={extractKey}
-           />
-        </View>
-     );
+export function Recipes(props) {
+   const { recipes } = props;
+   const extractKey = ({ id }) => id;
+   const renderItem = ({ item }) => {
+      return (
+         <TouchableOpacity style={styles.item}>
+            <Text style={styles.row}>{item.title.trim()}</Text>
+         </TouchableOpacity>
+      );
+   };
+   return (
+      <View style={styles.container}>
+         <Text style={styles.container}>
+            Select a recipe for nutrional information
+         </Text>
+         <FlatList
+            style={styles.container}
+            data={recipes}
+            renderItem={renderItem}
+            keyExtractor={extractKey}
+         />
+      </View>
+   );
 }
 
 const mapState = state => {
@@ -42,24 +49,16 @@ const styles = StyleSheet.create({
    },
    row: {
       padding: 15,
-      marginBottom: 5,
-      backgroundColor: 'skyblue'
+      backgroundColor: '#7F99A7',
+      color: '#fff'
    },
-   flatlist: {
-      backgroundColor: '#fff',
-      marginBottom: 90,
-      textAlign: 'center'
-   },
-   ingredientsText: {
-      fontSize: 17,
-      color: 'rgba(96,100,109, 1)'
-   },
+   //    flatlist: {
+   //       backgroundColor: '#fff',
+   //       marginBottom: 90,
+   //       textAlign: 'center'
+   //    },
    item: {
-      padding: 15,
-      marginTop: 5,
-      marginBottom: 5,
-      marginHorizontal: 30,
-      justifyContent: 'space-between',
-      flexDirection: 'row'
+      marginVertical: 5,
+      marginHorizontal: 30
    }
 });
