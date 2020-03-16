@@ -12,29 +12,36 @@ const scrape = async url => {
    $('body').each((i, elem) => {
       data = {
          title: $(elem)
-            .find('.recipe-title h1')
-            .text(),
+         .find('.recipe-title h1')
+         .text(),
          servings:
-            $(elem)
-               .find('.recipe-facts__yield')
-               .text() ||
-            $(elem)
-               .find('.recipe-facts__servings')
-               .text(),
-         ingredients: $(elem).find('.recipe-ingredients__item')
+         $(elem)
+         .find('.recipe-facts__yield')
+         .text() ||
+         $(elem)
+         .find('.recipe-facts__servings')
+         .text(),
+         ingredients: $(elem).find('.recipe-ingredients__item'),
+         directions: $(elem)
+         .find('.recipe-directions__steps')
+         .text()
       };
+      ingredients.push(data.title)
       data.ingredients.each((i, elem) => {
          let ingredient = $(elem)
-            .text()
-            .trim();
+         .text()
+         .trim();
          ingredients.push(ingredient);
       });
    });
-   const adjustedIngredients = ingredients.map(ingredient => {
-      if (isNaN(parseInt(ingredient[0]))) return '1 ' + ingredient
-      else return ingredient
-   })
-   return adjustedIngredients;
+   ingredients.push(data.directions)
+   console.log('ingredients', ingredients);
+   // data cleaning script below are specifically for edamam api 
+   // const adjustedIngredients = ingredients.map(ingredient => {
+   //    if (isNaN(parseInt(ingredient[0]))) return '1 ' + ingredient
+   //    else return ingredient
+   // })
+   return ingredients;
 };
 
 app.use(cors());

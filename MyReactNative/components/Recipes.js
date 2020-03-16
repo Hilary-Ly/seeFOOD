@@ -16,18 +16,12 @@ export function Recipes(props) {
    
    const { recipes, navigation, webScraperThunk } = props;
 
-   console.log('selectedLink', selectedLink, selectedTitle);
-
    const handleSubmit = async () => {
        // need to move this to reducers later..
       const quantifiedIngredients = await axios.post(
          `http://192.168.1.151:8081/scrape/?url=${selectedLink}`
       );
       const ingredientsArr = quantifiedIngredients.data
-      console.log(
-         'web scraper reuslts quantifiedIngredients.data',
-         ingredientsArr
-      );
     await webScraperThunk(ingredientsArr)
     await navigation.navigate('OneRecipe');
    };

@@ -99,7 +99,7 @@ export const getNutritionThunk = (recipeTitle, ingredientsArr) => {
 export const webScraperThunk = ingredientsArr => {
    return async dispatch => {
       // try {
-      console.log('ingredientsArr for  new state', ingredientsArr);
+    //   console.log('ingredientsArr for  new state', ingredientsArr);
       dispatch(getOneRecipe(ingredientsArr));
       // } catch (error) {
       //     console.error(error)

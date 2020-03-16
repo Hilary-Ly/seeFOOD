@@ -45,7 +45,7 @@ export default function HomeScreen() {
                   component={Recipes}
                   options={{
                      headerShown: false,
-                     cardStyle: { backgroundColor: 'transparent' }
+                     cardStyle: { backgroundColor: '#fff' }
                   }}
                />
                <Stack.Screen
