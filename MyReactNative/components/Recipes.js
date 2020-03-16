@@ -7,29 +7,49 @@ import {
    View
 } from 'react-native';
 import { connect } from 'react-redux';
-import axios from 'axios'
+import axios from 'axios';
+import { webScraperThunk } from '../redux/reducers'
 
 export function Recipes(props) {
-    // console.log('props in recipes comp', props)
-    const { recipes, navigation } = props;
-    const handleSubmit = async () => {
-        const url = 'http://www.food.com/recipe/creamy-tomato-sauce-for-pasta-233460'
-        console.log('recipe component uses scrape', url)
+   const [selectedLink, setLink] = React.useState(null);
+   const [selectedTitle, setTitle] = React.useState(null);
+   
+   const { recipes, navigation, webScraperThunk } = props;
 
-        const quantifiedIngredients = await axios.post(
-           `http://192.168.1.151:8081/scrape/?url=${url}`
-        );
-        console.log('web scraper reuslts quantifiedIngredients.data', quantifiedIngredients.data);
+   console.log('selectedLink', selectedLink, selectedTitle);
 
-    }
-   const extractKey = ({ id }) => id;
+   const handleSubmit = async () => {
+       // need to move this to reducers later..
+      const quantifiedIngredients = await axios.post(
+         `http://192.168.1.151:8081/scrape/?url=${selectedLink}`
+      );
+      const ingredientsArr = quantifiedIngredients.data
+      console.log(
+         'web scraper reuslts quantifiedIngredients.data',
+         ingredientsArr
+      );
+    await webScraperThunk(ingredientsArr)
+    await navigation.navigate('OneRecipe');
+   };
+
+   const extractKey = ({ href }) => href;
    const renderItem = ({ item }) => {
       return (
-         <TouchableOpacity style={styles.item} key={item.href} onPress={handleSubmit}>
-            <Text style={styles.itemName}>{item.title.trim()}</Text>
-            <Text style={styles.itemText}>({item.ingredients})</Text>
-            <Text style={styles.itemName}>({item.href})</Text>
-         </TouchableOpacity>
+         <View key={item.href}>
+            <TouchableOpacity
+            keyExtractor={extractKey}
+               style={styles.item}
+               onPress={() => {
+                  setLink(item.href)
+                  setTitle(item.title)
+                  handleSubmit()
+               }}
+            >
+               <Text style={styles.itemName}>{item.title.trim()}</Text>
+               <Text style={styles.itemText}>({item.ingredients})</Text>
+               <Text style={styles.itemName}>({item.href})</Text>
+            </TouchableOpacity>
+         </View>
       );
    };
    return (
@@ -53,7 +73,13 @@ const mapState = state => {
    };
 };
 
-export default connect(mapState)(Recipes);
+const mapDispatch = dispatch => ({
+   webScraperThunk: (url) => {
+      dispatch(webScraperThunk(url));
+   }
+});
+
+export default connect(mapState, mapDispatch)(Recipes);
 
 const styles = StyleSheet.create({
    container: {
@@ -72,14 +98,9 @@ const styles = StyleSheet.create({
       color: '#fff',
       fontStyle: 'italic'
    },
-   //    flatlist: {
-   //       backgroundColor: '#fff',
-   //       marginBottom: 90,
-   //       textAlign: 'center'
-   //    },
    item: {
       margin: 15,
       marginVertical: 5,
       marginHorizontal: 30
-   },
+   }
 });

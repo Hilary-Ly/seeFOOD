@@ -3,6 +3,8 @@ import '../secrets';
 
 const GET_INGREDIENTS = 'GET_INGREDIENTS';
 const SUBMIT_INGREDIENTS = 'SUBMIT_INGREDIENTS';
+const GET_NUTRITION = 'GET_NUTRITION';
+const GET_RECIPE = 'GET_RECIPE'
 
 const getIngredients = ingredients => {
    return {
@@ -17,6 +19,16 @@ const submitIngredients = recipes => {
       recipes
    };
 };
+
+const getNutrition = nutrition => ({
+   type: GET_NUTRITION,
+   nutrition
+});
+
+const getOneRecipe = recipe => ({
+   type: GET_RECIPE,
+   recipe
+});
 
 export const getIngredientsThunk = foodImageUrl => {
    return async dispatch => {
@@ -66,7 +78,41 @@ export const submitIngredientsThunk = ingredientsStr => {
    };
 };
 
-const initialState = { ingredients: [], recipes: [] };
+export const getNutritionThunk = (recipeTitle, ingredientsArr) => {
+   return async dispatch => {
+      try {
+         console.log('data fed into thunk', recipeTitle, ingredientsArr);
+         const {
+            data
+         } = await axios.post(
+            `https://api.edamam.com/api/nutrition-details?app_id=${process.env.EDAMAM_APP_ID}&app_key=${process.env.EDAMAM_API_KEY}&force`,
+            { title: recipeTitle, ingr: ingredientsArr }
+         );
+         //   console.log('data from edamam request', data)
+         dispatch(getNutrition(data)); //
+      } catch (error) {
+         console.error(error);
+      }
+   };
+};
+
+export const webScraperThunk = ingredientsArr => {
+   return async dispatch => {
+      // try {
+      console.log('ingredientsArr for  new state', ingredientsArr);
+      dispatch(getOneRecipe(ingredientsArr));
+      // } catch (error) {
+      //     console.error(error)
+      // }
+   };
+};
+
+const initialState = {
+   ingredients: [],
+   recipes: [],
+   nutrition: {},
+   oneRecipe: []
+};
 
 const reducer = (state = initialState, action) => {
    switch (action.type) {
@@ -74,6 +120,12 @@ const reducer = (state = initialState, action) => {
          return { ...state, ingredients: action.ingredients };
       case SUBMIT_INGREDIENTS:
          return { ...state, recipes: action.recipes };
+      case GET_NUTRITION:
+         console.log('state change', action.nutrition);
+         return { ...state, nutrition: action.nutrition };
+      case GET_RECIPE:
+         console.log('state change', action.recipe);
+         return { ...state, oneRecipe: action.recipe };
       default:
          return state;
    }

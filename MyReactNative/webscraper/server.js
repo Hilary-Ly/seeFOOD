@@ -30,7 +30,11 @@ const scrape = async url => {
          ingredients.push(ingredient);
       });
    });
-   return ingredients
+   const adjustedIngredients = ingredients.map(ingredient => {
+      if (isNaN(parseInt(ingredient[0]))) return '1 ' + ingredient
+      else return ingredient
+   })
+   return adjustedIngredients;
 };
 
 app.use(cors());

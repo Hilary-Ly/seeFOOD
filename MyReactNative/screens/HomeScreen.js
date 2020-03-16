@@ -14,6 +14,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import Ingredients from '../components/Ingredients';
 import Recipes from '../components/Recipes';
+import OneRecipe from '../components/OneRecipe';
 
 export default function HomeScreen() {
    const Stack = createStackNavigator();
@@ -42,6 +43,14 @@ export default function HomeScreen() {
                <Stack.Screen
                   name='Recipes'
                   component={Recipes}
+                  options={{
+                     headerShown: false,
+                     cardStyle: { backgroundColor: 'transparent' }
+                  }}
+               />
+               <Stack.Screen
+                  name='OneRecipe'
+                  component={OneRecipe}
                   options={{
                      headerShown: false,
                      cardStyle: { backgroundColor: 'transparent' }
