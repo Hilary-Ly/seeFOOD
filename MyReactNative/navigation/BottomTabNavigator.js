@@ -31,7 +31,7 @@ export default function BottomTabNavigator({ navigation, route }) {
             name='Links'
             component={LinksScreen}
             options={{
-               title: 'Hilary',
+               title: 'Credits',
                tabBarIcon: ({ focused }) => (
                   <TabBarIcon focused={focused} name='md-book' />
                )
