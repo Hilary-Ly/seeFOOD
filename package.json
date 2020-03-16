@@ -1,14 +1,58 @@
 {
-  "name": "foodvision",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "main": "node_modules/expo/AppEntry.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo start --web",
+    "eject": "expo eject",
+    "test": "jest --watchAll"
   },
-  "author": "",
-  "license": "ISC",
+  "jest": {
+    "preset": "jest-expo"
+  },
   "dependencies": {
-    "expo-image-picker": "^8.0.2"
-  }
+    "@expo/vector-icons": "~10.0.0",
+    "@react-native-community/masked-view": "0.1.5",
+    "@react-navigation/bottom-tabs": "^5.0.0",
+    "@react-navigation/native": "^5.0.0",
+    "@react-navigation/stack": "^5.0.0",
+    "@react-navigation/web": "~1.0.0-alpha.9",
+    "axios": "^0.19.2",
+    "cheerio": "^1.0.0-rc.3",
+    "clarifai": "^2.9.1",
+    "cors": "^2.8.5",
+    "expo": "~36.0.0",
+    "expo-application": "~2.0.0",
+    "expo-asset": "~8.0.0",
+    "expo-cli": "^3.13.8",
+    "expo-constants": "~8.0.0",
+    "expo-font": "~8.0.0",
+    "expo-image-picker": "~8.0.1",
+    "expo-sharing": "~8.0.0",
+    "expo-web-browser": "~8.0.0",
+    "express": "^4.17.1",
+    "firebase": "^7.11.0",
+    "react": "~16.9.0",
+    "react-devtools": "^3.6.3",
+    "react-dom": "~16.9.0",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-36.0.0.tar.gz",
+    "react-native-animated-loader": "0.0.8",
+    "react-native-gesture-handler": "~1.5.0",
+    "react-native-gifted-listview": "0.0.15",
+    "react-native-reanimated": "~1.4.0",
+    "react-native-safe-area-context": "0.6.0",
+    "react-native-screens": "2.0.0-alpha.12",
+    "react-native-web": "~0.11.7",
+    "react-redux": "^7.2.0",
+    "redux": "^4.0.5",
+    "redux-thunk": "^2.3.0",
+    "sequelize": "^5.21.5"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.0.0",
+    "babel-preset-expo": "~8.0.0",
+    "jest-expo": "~36.0.1"
+  },
+  "private": true
 }
