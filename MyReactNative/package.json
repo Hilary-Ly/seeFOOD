@@ -21,6 +21,7 @@
     "axios": "^0.19.2",
     "cheerio": "^1.0.0-rc.3",
     "clarifai": "^2.9.1",
+    "cors": "^2.8.5",
     "expo": "~36.0.0",
     "expo-application": "~2.0.0",
     "expo-asset": "~8.0.0",
