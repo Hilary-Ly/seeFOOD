@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "seeFOOD",
-    "slug": "MyReactNative",
+    "slug": "seefood",
     "privacy": "public",
     "sdkVersion": "36.0.0",
     "platforms": [
@@ -26,6 +26,8 @@
     ],
     "ios": {
       "supportsTablet": true
-    }
+    },
+    "description": "identify what you are eating!",
+    "githubUrl": "https://github.com/Hilary-Ly/seeFOOD"
   }
 }
