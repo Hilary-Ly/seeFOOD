@@ -4,7 +4,7 @@ seeFOOD is a mobile app that recognizes user-submitted food/drink images for its
 
 ## User Flow
 
-![imagerecognition](https://github.com/Hilary-Ly/seeFOOD/blob/master/MyReactNative/assets/images/screenvideo1.GIF) ![refineingredients](/MyReactNative/assets/images/screenvideo2.GIF) 
+![imagerecognition](/MyReactNative/assets/images/screenvideo1.GIF) ![refineingredients](/MyReactNative/assets/images/screenvideo2.GIF) ![chooserecipe](/MyReactNative/assets/images/screenvideo3.GIF)
 
 ## Installation
 
@@ -16,7 +16,7 @@ npm install
 
 ## Using <project_name>
 
-To use <project_name>, run:
+To use seeFOOD, run:
 
 ```
 npm start
@@ -41,7 +41,7 @@ APIs:
 
 ## Contributing to <project_name>
 <!--- If your README is long or you have some specific process or steps you want contributors to follow, consider creating a separate CONTRIBUTING.md file--->
-To contribute to <project_name>, follow these steps:
+To contribute, follow these steps:
 
 1. Fork this repository.
 2. Create a branch: `git checkout -b <branch_name>`.
