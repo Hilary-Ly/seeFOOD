@@ -4,7 +4,14 @@ seeFOOD is a mobile app that recognizes user-submitted food/drink images for its
 
 ## User Flow
 
-![imagerecognition](/MyReactNative/assets/images/screenvideo1.GIF) ![refineingredients](/MyReactNative/assets/images/screenvideo2.GIF) ![chooserecipe](/MyReactNative/assets/images/screenvideo3.GIF)
+Image recognition:
+![imagerecognition](/MyReactNative/assets/images/screenvideo1.GIF) 
+
+Refine ingredients:
+![refineingredients](/MyReactNative/assets/images/screenvideo2.GIF) 
+
+View recipe:
+![chooserecipe](/MyReactNative/assets/images/screenvideo3.GIF)
 
 ## Installation
 
