@@ -2,9 +2,9 @@
 
 seeFOOD is a mobile app that recognizes user-submitted food/drink images for its ingredients and provides recipes for those items, inspired by Silicon Valley on HBO. "It's Shazam, but for food!"
 
-# User Flow
+## User Flow
 
-![dashboard](./MyReactNative/assets/images/screenvideo1.gif) ![searchadd](./MyReactNative/assets/images/screenvideo2.gif) 
+![dashboard](https://github.com/Hilary-Ly/seeFOOD/tree/master/MyReactNative/assets/images/screenvideo1.gif) ![searchadd](https://github.com/Hilary-Ly/seeFOOD/tree/master/MyReactNative/assets/images/screenvideo2.gif) 
 
 ## Installation
 
