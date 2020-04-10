@@ -2,12 +2,16 @@
 
 seeFOOD is a mobile app that recognizes user-submitted food/drink images for its ingredients and provides recipes for those items, inspired by Silicon Valley on HBO. "It's Shazam, but for food!"
 
+# User Flow
+
+![dashboard](./MyReactNative/assets/images/screenvideo1.gif) ![searchadd](./MyReactNative/assets/images/screenvideo2.gif) 
+
 ## Installation
 
 After forking/cloning the repo, to install dependencies run:
 
 ```
-<npm install>
+npm install
 ```
 
 ## Using <project_name>
@@ -15,7 +19,7 @@ After forking/cloning the repo, to install dependencies run:
 To use <project_name>, run:
 
 ```
-<npm start>
+npm start
 ```
 
 This will open a browser window from Expo, that will allow you to open the app in either an Android or iOS simulator. To get the experience on your phone, download Expo Client from the App Store (available on both platforms) and scan the QR code.
